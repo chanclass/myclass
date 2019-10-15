@@ -1,0 +1,77 @@
+site_name: Black个人视频
+theme:
+  name: "material"
+  #  font: false
+  feature:
+    tabs: true
+  palette:
+    primary: black
+    accent: red
+  language: "zh"
+repo_url: https://github.com/chanclass/myclass
+
+copyright: "Copyright &copy; 2018 - 2018 Vincent Chan"
+
+plugins:
+  - search
+
+#google_analytics:
+#  - "UA-78705624-3"
+#  - "auto"
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: "#"
+  # pymdown-extensions
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: none
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      # css_class: codehilite # https://github.com/facelessuser/pymdown-extensions/blob/master/mkdocs.yml
+      extend_pygments_lang:
+        - name: python
+          lang: python
+          options:
+            startinline: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_css:
+  - static/css/extra.css
+
+extra_javascript:
+  - static/js/baidu-static.js
+
+extra:
+  social:
+    - type: github-alt
+      link: https://github.com/JayChen123
+
+nav:
+  - Introduction: index.md
+  - latex:
+      - latex/latex入门.md
+      - latex/latex安装.md
+  - openfoam:
+      - openfoam/基础命令.md
+      - openfoam/安装.md
+  - python:
+      - python/安装.md
+      - python/编程.md
+
