@@ -1,60 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dc14f846-5487-421a-bf88-80e63d2e70d4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/Guido.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/Linus_Torvalds.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/pylogo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/python下载.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/python主页面.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/python官网.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/代码.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/微软logo.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/搜索python.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/绝世武功.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/苹果logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/苹果下载.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/1/苹果下载python.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/2/python主页面.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/2/save_first.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/2/新文件.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/2/第一个程序代码.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/2/结果为.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/3/Gauss.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/3/一元一次方程.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/4/公式.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/image/4/函数.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/介绍.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第1章/1.1 什么是操作系统.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第1章/1.2 如何搭建Python.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第1章/1.3 为什么学Python.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第2章/2.1 开始编程.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第2章/2.2 基础数据.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第2章/2.3 变量.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第2章/2.4 创建程序.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.1 判断是否正数.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.2 计算方程.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.3 从1加到100.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.4 数学函数的介绍.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.5 复数的计算.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第3章/3.6 猜数字游戏.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.1 函数的初步.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.2 计算闰年.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.3 计算圆周率.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.4 手动实现四则运算.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.5 生成四则运算题.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.6 斐波拉契数列.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第4章/4.7 小试数列.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第5章/5.1 包的导入.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第5章/5.2 自定义包.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第5章/5.3 如何寻求帮助.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第5章/5.4 安装第三方模块.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/midStudent/第6章/6.1 画函数图像.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docs/关于作者.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/index.md" afterPath="$PROJECT_DIR$/docs/index.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mkdocs.yml" afterPath="$PROJECT_DIR$/mkdocs.yml" />
-    </list>
+    <list default="true" id="dc14f846-5487-421a-bf88-80e63d2e70d4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +15,7 @@
         <entry file="file://$PROJECT_DIR$/mkdocs.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="647">
-              <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -78,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/docs/midStudent/第4章/4.3 计算圆周率.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="317">
-              <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -88,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/docs/index.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="437">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -236,11 +183,19 @@
       <option name="project" value="LOCAL" />
       <updated>1571144670311</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="添加中学生编程资料">
+      <created>1571157663875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1571157663875</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -250,7 +205,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43047157" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43047157" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -268,7 +223,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="创建个人视频网站" />
     <MESSAGE value="网站细节修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="网站细节修改" />
+    <MESSAGE value="添加中学生编程资料" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加中学生编程资料" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -512,7 +468,7 @@
     <entry file="file://$PROJECT_DIR$/docs/index.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -528,7 +484,7 @@
     <entry file="file://$PROJECT_DIR$/docs/midStudent/第4章/4.3 计算圆周率.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <caret line="20" column="9" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -536,7 +492,7 @@
     <entry file="file://$PROJECT_DIR$/mkdocs.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="647">
-          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding />
         </state>
       </provider>
