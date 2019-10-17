@@ -69,14 +69,16 @@ nav:
   - 首页:
       - index.md
   - Latex:
+      - latex/介绍.md
       - latex/latex入门.md
       - latex/latex安装.md
   - OpenFOAM:
+      - openfoam/介绍.md
       - openfoam/基础命令.md
       - openfoam/安装.md
   - Python:
-      - python/安装.md
-      - python/编程.md
+      - python/列表展开式.md
+      - python/操作PDF.md
   - 中学生编程:
       - 介绍: midStudent/介绍.md
       - 第一章 环境搭建:
