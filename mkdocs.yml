@@ -112,6 +112,9 @@ nav:
           - 安装第三方模块: midStudent/第5章/5.4 安装第三方模块.md
       - 第六章 可视化:
           - 函数图像: midStudent/第6章/6.1 画函数图像.md
+  - 深度学习:
+      - DeepLearning/逻辑斯特回归模型.md
+      - DeepLearning/隐马可夫链模型.md
 
   - 关于:
       - 关于作者.md
