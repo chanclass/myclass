@@ -1,0 +1,1625 @@
+
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="复制">
+      
+        <meta name="lang:clipboard.copied" content="已复制">
+      
+        <meta name="lang:search.language" content="ja">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="没有找到符合条件的结果">
+      
+        <meta name="lang:search.result.one" content="找到 1 个符合条件的结果">
+      
+        <meta name="lang:search.result.other" content="# 个符合条件的结果">
+      
+        <meta name="lang:search.tokenizer" content="[\uff0c\u3002]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Keras的Tokenizer源码 - Black个人教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../static/css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="black" data-md-color-accent="red">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#kerastokenizer" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Black个人教程" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Black个人教程
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Keras的Tokenizer源码
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            键入以开始搜索
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/chanclass/myclass/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          首页
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../latex/介绍/" class="md-tabs__link">
+          Latex
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../openfoam/介绍/" class="md-tabs__link">
+          OpenFOAM
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../python/列表展开式/" class="md-tabs__link">
+          Python
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../midStudent/介绍/" class="md-tabs__link">
+          中学生编程
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          深度学习
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../关于作者/" class="md-tabs__link">
+          关于
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Black个人教程" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    Black个人教程
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/chanclass/myclass/" title="前往 Github 仓库" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      首页
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        首页
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="课程下载链接" class="md-nav__link">
+      课程下载链接
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Latex
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Latex
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../latex/介绍/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../latex/latex入门/" title="Latex入门" class="md-nav__link">
+      Latex入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../latex/latex安装/" title="Latex安装" class="md-nav__link">
+      Latex安装
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      OpenFOAM
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        OpenFOAM
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../openfoam/介绍/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../openfoam/基础命令/" title="基础命令" class="md-nav__link">
+      基础命令
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../openfoam/安装/" title="安装" class="md-nav__link">
+      安装
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Python
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/列表展开式/" title="列表展开式" class="md-nav__link">
+      列表展开式
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/pdf/操作PDF/" title="操作PDF" class="md-nav__link">
+      操作PDF
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/pdf/操作PDF页面/" title="操作PDF页面" class="md-nav__link">
+      操作PDF页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      中学生编程
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        中学生编程
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/介绍/" title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+    
+    <label class="md-nav__link" for="nav-5-2">
+      第一章 环境搭建
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-2">
+        第一章 环境搭建
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第1章/1.1 什么是操作系统/" title="什么是操作系统" class="md-nav__link">
+      什么是操作系统
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第1章/1.2 如何搭建Python/" title="如何搭建环境" class="md-nav__link">
+      如何搭建环境
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第1章/1.3 为什么学Python/" title="为什么学Python" class="md-nav__link">
+      为什么学Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3">
+    
+    <label class="md-nav__link" for="nav-5-3">
+      第二章 基础
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-3">
+        第二章 基础
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第2章/2.1 开始编程/" title="开始编程" class="md-nav__link">
+      开始编程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第2章/2.2 基础数据/" title="基础数据" class="md-nav__link">
+      基础数据
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第2章/2.3 变量/" title="变量是什么" class="md-nav__link">
+      变量是什么
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第2章/2.4 创建程序/" title="创建程序" class="md-nav__link">
+      创建程序
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-4" type="checkbox" id="nav-5-4">
+    
+    <label class="md-nav__link" for="nav-5-4">
+      第三章 逻辑
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-4">
+        第三章 逻辑
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.1 判断是否正数/" title="判断正数" class="md-nav__link">
+      判断正数
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.2 计算方程/" title="计算方程" class="md-nav__link">
+      计算方程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.3 从1加到100/" title="从1加到100" class="md-nav__link">
+      从1加到100
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.4 数学函数的介绍/" title="数学函数的介绍" class="md-nav__link">
+      数学函数的介绍
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.5 复数的计算/" title="复数的计算" class="md-nav__link">
+      复数的计算
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第3章/3.6 猜数字游戏/" title="猜数字游戏" class="md-nav__link">
+      猜数字游戏
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-5" type="checkbox" id="nav-5-5">
+    
+    <label class="md-nav__link" for="nav-5-5">
+      第四章 函数
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-5">
+        第四章 函数
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.1 函数的初步/" title="函数的初步" class="md-nav__link">
+      函数的初步
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.2 计算闰年/" title="计算闰年" class="md-nav__link">
+      计算闰年
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.3 计算圆周率/" title="计算圆周率" class="md-nav__link">
+      计算圆周率
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.4 手动实现四则运算/" title="手动实现四则运算" class="md-nav__link">
+      手动实现四则运算
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.5 生成四则运算题/" title="生成四则运算题" class="md-nav__link">
+      生成四则运算题
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.6 斐波拉契数列/" title="斐波拉契数列" class="md-nav__link">
+      斐波拉契数列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第4章/4.7 小试数列/" title="小试数列" class="md-nav__link">
+      小试数列
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-6" type="checkbox" id="nav-5-6">
+    
+    <label class="md-nav__link" for="nav-5-6">
+      第五章 包管理
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-6">
+        第五章 包管理
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第5章/5.1 包的导入/" title="包的导入与使用" class="md-nav__link">
+      包的导入与使用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第5章/5.2 自定义包/" title="自定义包" class="md-nav__link">
+      自定义包
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第5章/5.3 如何寻求帮助/" title="如何寻求帮助" class="md-nav__link">
+      如何寻求帮助
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第5章/5.4 安装第三方模块/" title="安装第三方模块" class="md-nav__link">
+      安装第三方模块
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-7" type="checkbox" id="nav-5-7">
+    
+    <label class="md-nav__link" for="nav-5-7">
+      第六章 可视化
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-7">
+        第六章 可视化
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../midStudent/第6章/6.1 画函数图像/" title="函数图像" class="md-nav__link">
+      函数图像
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      深度学习
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        深度学习
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Keras的Tokenizer源码
+      </label>
+    
+    <a href="./" title="Keras的Tokenizer源码" class="md-nav__link md-nav__link--active">
+      Keras的Tokenizer源码
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tokenizer" class="md-nav__link">
+    tokenizer是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基本参数说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    几个重要接口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    源码分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      关于
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        关于
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../关于作者/" title="关于作者" class="md-nav__link">
+      关于作者
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tokenizer" class="md-nav__link">
+    tokenizer是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基本参数说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    几个重要接口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    源码分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/chanclass/myclass/edit/master/docs/DeepLearning/keras的Tokenizer源码解读.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="kerastokenizer">Keras的Tokenizer源码<a class="headerlink" href="#kerastokenizer" title="Permanent link">#</a></h1>
+<p>非常喜欢<code>keras</code>框架，平时都是使用封装好的API，基本完全可以满足需求，很少需要修改源码的。最近对keras的实现更加好奇了，于是花点时间读源码，然后整理点学习笔记吧。</p>
+<p>我大致浏览了keras中文文档以及英文文档和源码，发现文档不太全面，很多源码实现的接口而文档中没有涉及到，于是萌生了自己整理分析源码的想法。</p>
+<p>本文作为第一篇文档，先从预处理的<code>tokenizer</code>开始整理。</p>
+<h2 id="tokenizer">tokenizer是什么<a class="headerlink" href="#tokenizer" title="Permanent link">#</a></h2>
+<p>计算机在处理语言文字时，是无法理解文字的含义，通常会把一个词（中文单个字或者词组认为是一个词）转化为一个正整数，于是一个文本就变成了一个序列。而<code>tokenizer</code>的核心任务就是做这个事情。</p>
+<h2 id="_1">基本参数说明<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Tokenizer</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="s1">&#39;!&quot;#$%&amp;()*+,-./:;&lt;=&gt;?@[</span><span class="se">\\</span><span class="s1">]^_`{|}~</span><span class="se">\t\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">char_level</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">oov_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">document_count</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li><strong>num_words</strong>: the maximum number of words to keep, based on word frequency. Only the most common num_words-1 words will be kept.</li>
+<li><strong>filters</strong>: a string where each element is a character that will be filtered from the texts. The default is all punctuation, plus tabs and line breaks, minus the ' character.</li>
+<li><strong>lower</strong>: boolean. Whether to convert the texts to lowercase.</li>
+<li><strong>split</strong>: str. Separator for word splitting.</li>
+<li><strong>char_level</strong>: if True, every character will be treated as a token.</li>
+<li><strong>oov_token</strong>: if given, it will be added to word<em>index and used to replace out-of-vocabulary words during text</em>to_sequence calls<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
+</ul>
+<hr />
+<ul>
+<li><strong>num_words</strong>: 保留的最大词数，根据词频计算，保留前<code>num_word - 1</code>个</li>
+<li><strong>filters</strong>: 过滤器，默认过滤掉常用的特殊符号</li>
+<li><strong>lower</strong>：是否转化为小写</li>
+<li><strong>split</strong>：词的分隔符</li>
+<li><strong>char_level</strong>：是否将每个字符都认为是词，默认是否。在处理中文时如果每个字都作为是词，这个参数改为<code>True</code>.</li>
+<li><strong>oov_token</strong>：如果给出，会添加到词索引中，用来替换超出词表的字符</li>
+<li><strong>document_count</strong>：文档个数，这个参数一般会根据喂入文本自动计算，无需给出</li>
+</ul>
+<h2 id="_2">几个重要接口<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>这里我直接截图了keras的中文文档<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>。有一个小问题，这是对象或者实例的方法，而不是类方法。</p>
+<p><img alt="" src="http://www.blackedu.vip/admin/wp-content/uploads/2019/09/屏幕快照-2019-09-15-08.19.07.png" /></p>
+<p><img alt="" src="http://www.blackedu.vip/admin/wp-content/uploads/2019/09/屏幕快照-2019-09-15-08.19.16.png" /></p>
+<h2 id="_3">源码分析<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit_on_texts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates internal vocabulary based on a list of texts.</span>
+<span class="sd">        基于文本列表，更新内部词典，主要是word_index,和index_word这两个属性</span>
+
+<span class="sd">        In the case where texts contains lists,</span>
+<span class="sd">        we assume each entry of the lists to be a token.</span>
+
+<span class="sd">        Required before using `texts_to_sequences` or `texts_to_matrix`.</span>
+
+<span class="sd">        # Arguments</span>
+<span class="sd">            texts: can be a list of strings,</span>
+<span class="sd">            字符串列表</span>
+<span class="sd">                a generator of strings (for memory-efficiency),</span>
+<span class="sd">                字符串的生成器</span>
+<span class="sd">                or a list of list of strings.</span>
+<span class="sd">                列表中嵌套的列表字符串</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">document_count</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># 更新文档数</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_level</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_elem</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">text_elem</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span> <span class="c1"># 将所有字符转为小写</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="n">text</span> <span class="c1"># seq存储文本的词序列，单个字或者词作为元素</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="n">text_to_word_sequence</span><span class="p">(</span><span class="n">text</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">)</span> <span class="c1"># 文本转为词序列，这个接口单独分析</span>
+            <span class="c1"># self.word_counts是一个有序字典，用来统计词频</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_counts</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">word_counts</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">word_counts</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
+                <span class="c1"># In how many documents each word occurs</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">word_docs</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">wcounts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_counts</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="n">wcounts</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># 按照词频降序排序</span>
+        <span class="c1"># forcing the oov_token to index 1 if it exists</span>
+        <span class="c1"># 强制把oov_token的索引设置为1，0通常是padding的补充值</span>
+        <span class="c1"># 是否指定超出词典的标记</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">sorted_voc</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sorted_voc</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span><span class="p">]</span>
+        <span class="n">sorted_voc</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">wc</span> <span class="ow">in</span> <span class="n">wcounts</span><span class="p">)</span>
+
+        <span class="c1"># note that index 0 is reserved, never assigned to an existing word</span>
+        <span class="c1"># 更新word_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sorted_voc</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_voc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))))</span>
+        <span class="c1"># 更新index_word</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index_word</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">c</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_docs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index_docs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="p">[</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="n">c</span>
+</pre></div>
+
+<p>接口的实现思路总结：将输入的文本列表先拆成词，然后统计每个词的词频，并存入有序字典中。将字段元素转为列表，并且降序排列。根据这个排序的列表可以得到word<em>index和index</em>word。之后的把文本转为词序列<code>texts_to_sequences</code>或者把词序列转为文本<code>sequences_to_texts</code>，依赖这两个词表。</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">texts_to_sequences_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforms each text in `texts` to a sequence of integers.</span>
+
+<span class="sd">        Each item in texts can also be a list,</span>
+<span class="sd">        in which case we assume each item of that list to be a token.</span>
+
+<span class="sd">        Only top `num_words-1` most frequent words will be taken into account.</span>
+<span class="sd">        Only words known by the tokenizer will be taken into account.</span>
+
+<span class="sd">        # Arguments</span>
+<span class="sd">            texts: A list of texts (strings).</span>
+
+<span class="sd">        # Yields</span>
+<span class="sd">            Yields individual sequences.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_words</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_words</span> <span class="c1"># 保留最常用的词数</span>
+        <span class="n">oov_token_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span><span class="p">)</span> <span class="c1"># 获取oov_token的词索引</span>
+        <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_level</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text_elem</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">text_elem</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="n">text</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">seq</span> <span class="o">=</span> <span class="n">text_to_word_sequence</span><span class="p">(</span><span class="n">text</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">)</span>
+            <span class="n">vect</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># 存储返回结果</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+                <span class="c1"># 注意这里的word_index是根据词频的降序排列的</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="c1"># 获取词索引</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># 拿到了词索引</span>
+                    <span class="c1"># 指定了num_words 并且词索引大于num_words</span>
+                    <span class="k">if</span> <span class="n">num_words</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">num_words</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">oov_token_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># oov_token 的词索引不为空</span>
+                            <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oov_token_index</span><span class="p">)</span> <span class="c1"># 将这个词当成 oov_token</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="c1"># 没有指定num_words或者i&lt;num_words 加入</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oov_token_index</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">vect</span> <span class="c1"># 生成器的返回</span>
+            <span class="c1"># 这里有个问题，没有指定num_words或者i&lt;num_words ，此时也没有指定oov_token，那么这个词将会被忽略</span>
+</pre></div>
+
+<p>接口的实现思路总结：获取到词索引，然后判断是否满足返回条件。</p>
+<ul>
+<li>如果词索引没有拿到，会试图用oov<em>token填充；如果oov</em>token也没有指定，那就直接忽略掉</li>
+<li>拿到词索引，判读是否指定num<em>words，以及词索引是否大于num</em>words</li>
+</ul>
+<p><code>texts_to_sequences</code>底层直接调用了这个生成器。</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">sequences_to_texts_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transforms each sequence in `sequences` to a list of texts(strings).</span>
+
+<span class="sd">        Each sequence has to a list of integers.</span>
+<span class="sd">        In other words, sequences should be a list of sequences</span>
+
+<span class="sd">        Only top `num_words-1` most frequent words will be taken into account.</span>
+<span class="sd">        Only words known by the tokenizer will be taken into account.</span>
+
+<span class="sd">        # Arguments</span>
+<span class="sd">            sequences: A list of sequences.</span>
+
+<span class="sd">        # Yields</span>
+<span class="sd">            Yields individual texts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_words</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_words</span>
+        <span class="n">oov_token_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">:</span>
+            <span class="n">vect</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+                <span class="n">word</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index_word</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="c1"># 根据词索引获取到词</span>
+                <span class="k">if</span> <span class="n">word</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># 如果词不为空</span>
+                    <span class="k">if</span> <span class="n">num_words</span> <span class="ow">and</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="n">num_words</span><span class="p">:</span> <span class="c1"># num_words指定了并且词索引大于等于num_words</span>
+                        <span class="k">if</span> <span class="n">oov_token_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># 指定了oov_token</span>
+                            <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index_word</span><span class="p">[</span><span class="n">oov_token_index</span><span class="p">])</span> <span class="c1"># 这个词就是 oov_token</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="c1"># 没指定oov_token 或者num &lt; num_words</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span> <span class="c1"># word 为空 但是oov_token 不为空</span>
+                    <span class="n">vect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index_word</span><span class="p">[</span><span class="n">oov_token_index</span><span class="p">])</span><span class="c1"># 这个词也是 oov_token</span>
+            <span class="n">vect</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vect</span><span class="p">)</span> <span class="c1"># 词序列拼接成字符串</span>
+            <span class="k">yield</span> <span class="n">vect</span>
+</pre></div>
+
+<p>接口分析：实现思路在注释基本清楚了。<code>sequences_to_texts</code>直接调用了这个生成器。</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Returns the tokenizer configuration as Python dictionary.</span>
+<span class="sd">        The word count dictionaries used by the tokenizer get serialized</span>
+<span class="sd">        into plain JSON, so that the configuration can be read by other</span>
+<span class="sd">        projects.</span>
+
+<span class="sd">        # Returns</span>
+<span class="sd">            A Python dictionary with the tokenizer configuration.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">json_word_counts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_counts</span><span class="p">)</span>
+        <span class="n">json_word_docs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_docs</span><span class="p">)</span>
+        <span class="n">json_index_docs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index_docs</span><span class="p">)</span>
+        <span class="n">json_word_index</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">word_index</span><span class="p">)</span>
+        <span class="n">json_index_word</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index_word</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;num_words&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_words</span><span class="p">,</span>
+            <span class="s1">&#39;filters&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span>
+            <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+            <span class="s1">&#39;split&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">,</span>
+            <span class="s1">&#39;char_level&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">char_level</span><span class="p">,</span>
+            <span class="s1">&#39;oov_token&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">oov_token</span><span class="p">,</span>
+            <span class="s1">&#39;document_count&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_count</span><span class="p">,</span>
+            <span class="s1">&#39;word_counts&#39;</span><span class="p">:</span> <span class="n">json_word_counts</span><span class="p">,</span>
+            <span class="s1">&#39;word_docs&#39;</span><span class="p">:</span> <span class="n">json_word_docs</span><span class="p">,</span>
+            <span class="s1">&#39;index_docs&#39;</span><span class="p">:</span> <span class="n">json_index_docs</span><span class="p">,</span>
+            <span class="s1">&#39;index_word&#39;</span><span class="p">:</span> <span class="n">json_index_word</span><span class="p">,</span>
+            <span class="s1">&#39;word_index&#39;</span><span class="p">:</span> <span class="n">json_word_index</span>
+        <span class="p">}</span>
+</pre></div>
+
+<div class="highlight"><pre><span></span>   <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a JSON string containing the tokenizer configuration.</span>
+<span class="sd">        To load a tokenizer from a JSON string, use</span>
+<span class="sd">        `keras.preprocessing.text.tokenizer_from_json(json_string)`.</span>
+
+<span class="sd">        # Arguments</span>
+<span class="sd">            **kwargs: Additional keyword arguments</span>
+<span class="sd">                to be passed to `json.dumps()`.</span>
+
+<span class="sd">        # Returns</span>
+<span class="sd">            A JSON string containing the tokenizer configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+        <span class="n">tokenizer_config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;class_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">config</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">tokenizer_config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+<p>接口分析：<code>to_json</code>是把<code>tokenizer</code>对象序列化，并且以json的格式存储起来。存储以后肯定要提供一个接口来反序列化得到<code>tokenizer</code>，这个反序列的接口是<code>tokenizer_from_json</code>.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tokenizer_from_json</span><span class="p">(</span><span class="n">json_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parses a JSON tokenizer configuration file and returns a</span>
+<span class="sd">    tokenizer instance.</span>
+
+<span class="sd">    # Arguments</span>
+<span class="sd">        json_string: JSON string encoding a tokenizer configuration.</span>
+
+<span class="sd">    # Returns</span>
+<span class="sd">        A Keras Tokenizer instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tokenizer_config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">tokenizer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">)</span>
+
+    <span class="n">word_counts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;word_counts&#39;</span><span class="p">))</span>
+    <span class="n">word_docs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;word_docs&#39;</span><span class="p">))</span>
+    <span class="n">index_docs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;index_docs&#39;</span><span class="p">))</span>
+    <span class="c1"># Integer indexing gets converted to strings with json.dumps()</span>
+    <span class="n">index_docs</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">index_docs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">index_word</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;index_word&#39;</span><span class="p">))</span>
+    <span class="n">index_word</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">index_word</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">word_index</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;word_index&#39;</span><span class="p">))</span>
+
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">Tokenizer</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">word_counts</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">word_docs</span> <span class="o">=</span> <span class="n">word_docs</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">index_docs</span> <span class="o">=</span> <span class="n">index_docs</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">word_index</span> <span class="o">=</span> <span class="n">word_index</span>
+    <span class="n">tokenizer</span><span class="o">.</span><span class="n">index_word</span> <span class="o">=</span> <span class="n">index_word</span>
+
+    <span class="k">return</span> <span class="n">tokenizer</span>
+</pre></div>
+
+<h2 id="_4">总结<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>本文大致分析了keras的Tokenizer类中比较重要的参数，属性以及对象的方法。这个分词器主要是把文本转化为词序列，同时也提供了词序列转为文本的接口。源码非常清晰简洁，功能基本完善，如果需要实现部分定制化的功能，继承这个类，添加一些接口也非常简单。比如我需要删除低频词而不是设置保留词。在面对大量文本时，保留词的个数很难确定，具体是2万还是1.5万不好设置，但是对于低频词是容易界定的。</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://keras-cn-docs.readthedocs.io/zh_CN/latest/preprocessing/text/">https://keras-cn-docs.readthedocs.io/zh_CN/latest/preprocessing/text/</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://keras.io/preprocessing/text/">https://keras.io/preprocessing/text/</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../midStudent/第6章/6.1 画函数图像/" title="函数图像" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                函数图像
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../关于作者/" title="关于作者" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                关于作者
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2015 - 2019 Vincent Chan
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/JayChen123" class="md-footer-social__link fa fa-github-alt"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+        
+        
+          
+          <script src="../../assets/javascripts/lunr/lunr.stemmer.support.js"></script>
+          
+            
+              
+                <script src="../../assets/javascripts/lunr/tinyseg.js"></script>
+              
+              
+                <script src="../../assets/javascripts/lunr/lunr.ja.js"></script>
+              
+            
+          
+          
+        
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../static/js/baidu-static.js"></script>
+      
+        <script src="../../static/js/math.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
