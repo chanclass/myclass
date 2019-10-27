@@ -1,11 +1,11 @@
-site_name: Black个人教程
+site_name: Black个人专栏
 theme:
   name: "material"
   #  font: false
   feature:
     tabs: true
   palette:
-    primary: black
+    primary: blue
     accent: red
   language: "zh"
 repo_url: https://github.com/chanclass/myclass
@@ -68,14 +68,17 @@ extra:
 nav:
   - 首页:
       - index.md
-  - Latex:
-      - latex/介绍.md
-      - latex/latex入门.md
-      - latex/latex安装.md
-  - OpenFOAM:
-      - openfoam/介绍.md
-      - openfoam/基础命令.md
-      - openfoam/安装.md
+  - 深度学习:
+      - DeepLearning/keras的Tokenizer源码解读.md
+      - DeepLearning/WordEmbedding深入解读.md
+  # - Latex:
+  #     - latex/介绍.md
+  #     - latex/latex入门.md
+  #     - latex/latex安装.md
+  # - OpenFOAM:
+  #     - openfoam/介绍.md
+  #     - openfoam/基础命令.md
+  #     - openfoam/安装.md
   - Python:
       - python/列表展开式.md
       - python/pdf/操作PDF.md
@@ -113,9 +116,6 @@ nav:
           - 安装第三方模块: midStudent/第5章/5.4 安装第三方模块.md
       - 第六章 可视化:
           - 函数图像: midStudent/第6章/6.1 画函数图像.md
-  - 深度学习:
-      - DeepLearning/逻辑斯特回归模型.md
-      - DeepLearning/隐马可夫链模型.md
 
   - 关于:
       - 关于作者.md
