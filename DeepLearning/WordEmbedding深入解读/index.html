@@ -36,7 +36,7 @@
     
     
       
-        <title>逻辑斯特回归模型 - Black个人专栏</title>
+        <title>Word Embedding深入解读 - Black个人专栏</title>
       
     
     
@@ -87,6 +87,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#word-embedding" tabindex="1" class="md-skip">
+        跳转至
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -109,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                逻辑斯特回归模型
+                Word Embedding深入解读
               
             </span>
           
@@ -177,7 +181,9 @@
       
         
 
-<nav class="md-tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -199,7 +205,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../keras的Tokenizer源码解读/" class="md-tabs__link">
+        <a href="../keras的Tokenizer源码解读/" class="md-tabs__link md-tabs__link--active">
           深度学习
         </a>
       
@@ -329,10 +335,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       深度学习
@@ -360,11 +368,70 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../WordEmbedding深入解读/" title="Word Embedding深入解读" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Word Embedding深入解读
+      </label>
+    
+    <a href="./" title="Word Embedding深入解读" class="md-nav__link md-nav__link--active">
       Word Embedding深入解读
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解释监督模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    举例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -956,17 +1023,104 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解释监督模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    举例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/chanclass/myclass/edit/master/docs/DeepLearning/逻辑斯特回归模型.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/chanclass/myclass/edit/master/docs/DeepLearning/WordEmbedding深入解读.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>逻辑斯特回归模型</h1>
-                
-                
+                <h1 id="word-embedding">Word Embedding深入解读<a class="headerlink" href="#word-embedding" title="Permanent link">#</a></h1>
+<h2 id="_1">介绍<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<p>我们在做NLP任务时，经常都会用到词向量。用TensorFlow或者keras等框架时，都会创建一层Embedding层，这个Embedding层可以用<strong>随机生成的矩阵</strong>也可以<strong>预训练的矩阵</strong>。问题是如果最开始使用随机生成的矩阵，经过某个任务训练以后，也就是经过梯度更新了参数，最终的Embedding层的参数会接近之前的预训练的参数吗？或者说的再直白一点，keras的Embedding层与预训练向量的<code>word vector</code>有什么区别呢？</p>
+<p>回答这个问题，首先只要弄清楚了<code>word vector</code>是怎么得到的，就明白了整个过程。网上总结了<code>Word2vec中数学原理详解</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>。使用word2vec训练词向量时，我们虽然没有标记数据，但不是无监督的训练，可以认为是自监督，是利用文本的上下文来训练的，比如<code>Tomas Mikolov</code>给出的两个模型，<code>CBOW</code>和<code>Skip-gram</code>模型，二者的区别在于<code>CBOW</code>使用上下文来预测当前词，而<code>Skip-gram</code>利用当前词来预测上下文，本质上都是利用神经网络来做分类问题，很明显就是一种监督训练，只不过自己标记了数据。</p>
+<h2 id="_2">解释监督模型<a class="headerlink" href="#_2" title="Permanent link">#</a></h2>
+<p>解释一下为什么是自监督模型：</p>
+<p>在语料中截取这样的数据作为训练数据<span><span class="MathJax_Preview">(context(w_i), w_i)</span><script type="math/tex">(context(w_i), w_i)</script></span>，分别是上下文和上下文对应的词，目标就是</p>
+<div>
+<div class="MathJax_Preview"> loss = \sum_{i \in C} \log p(w_i|context(w_i)) </div>
+<script type="math/tex; mode=display"> loss = \sum_{i \in C} \log p(w_i|context(w_i)) </script>
+</div>
+<p>让loss最大化，就能得到word2vec的词向量。很明显这就是一个监督问题<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup>吧。</p>
+<p>无论是<code>CBOW</code>还是<code>Skip-gram</code>模型，其结构相同，分别是输入层，投影层，隐藏层，输出层。而在keras或者TensorFlow中的Embedding层<strong>就是一个投影层而已</strong>，如果你学习的目标与word2vec一样，那么你得到的词向量结果基本相同，否则你得到的词向量之间没有想要的相似关系。</p>
+<h2 id="_3">举例<a class="headerlink" href="#_3" title="Permanent link">#</a></h2>
+<p>引用苏剑林的例子（他的文章分析的很透彻<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>）：</p>
+<div class="highlight"><pre><span></span>我喜欢你
+我讨厌你
+</pre></div>
+
+<p>对于这样的文本，利用word2vec训练的结果一定是<code>喜欢</code>和<code>讨厌</code>距离非常近似，因为上下文是一致的，而在情感分析分析中，这是两种完全不同的情感，那么<code>喜欢</code>和<code>讨厌</code>这两个词距离相差很远。我之前在做项目时，无论使用预训练词向量还是预训练的模型，其结果都不如随机产生的Embedding层效果好。</p>
+<h2 id="_4">总结<a class="headerlink" href="#_4" title="Permanent link">#</a></h2>
+<p>这里简单总结一下：</p>
+<ol>
+<li>word2vec是一个完成神经语言模型，包含输入层，投影层，隐藏层，输出层。而Embedding层仅仅只相当于投影层而已。</li>
+<li>对于不同的NLP任务来说，虽然都用Embedding层，最终训练得到的副产物词向量（投影层）结果没有任何关联，都是通过更新参数得到的Embedding。</li>
+<li>虽然这两个层不是同一个东西，不是说不能使用预训练词向量，还得看具体的任务。在大规模语料中，我们要求词向量有上下文关系的，比如实体识别、机器翻译等任务，预训练的词向量效果会更好，就可以使用Embedding（投影层）加载预训练的词向量矩阵，而这个矩阵仅仅只是一个lookup层而已。</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>《word2vec数学原理详解》，作者通讯录<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#101;&#103;&#104;&#111;&#116;&#121;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;">&#112;&#101;&#103;&#104;&#111;&#116;&#121;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://spaces.ac.cn/archives/4122">https://spaces.ac.cn/archives/4122</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
@@ -983,6 +1137,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../keras的Tokenizer源码解读/" title="Keras的Tokenizer源码" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                Keras的Tokenizer源码
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../python/列表展开式/" title="列表展开式" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                列表展开式
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
